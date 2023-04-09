@@ -77,7 +77,7 @@ player.hit(deck)
 player.hit(deck)
 dealer.hit(deck)
 print("Your hand:", player.hand)
-print("deler's's hand:", dealer.hand.cards, "as well as a secret card")
+print("deler's's   hand:", dealer.hand.cards, "as well as a secret card")
 
 # Player's turn
 while True:
