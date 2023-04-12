@@ -1,4 +1,5 @@
 import random
+from calligram_new import title
 
 cards = {
     'Ace': 11,
@@ -15,6 +16,8 @@ cards = {
     'Three': 3,
     'Two': 2
 }
+
+print(title)
 
 card_names = list(cards.keys())
 
