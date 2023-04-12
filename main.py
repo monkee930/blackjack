@@ -29,18 +29,25 @@ class Deck:
 class Hand:
     def __init__(self):
         self.cards = []
-        self.value = 0
         
     def add_card(self, card):
         self.cards.append(card)
-        self.value += cards[card]
-        
-        if self.value > 21 and 'Ace' in self.cards:
-            self.value -= 10
-            self.cards.remove('Ace')
         
     def __str__(self):
         return ', '.join(self.cards)
+
+    def get_value(self):
+      value = 0.0
+      for card in self.cards:
+          if card != 'Ace':
+            value += cards[card]
+      if 'Ace' in self.cards:
+          if value + cards['Ace'] > 21:
+            value += 1
+          else:
+            value += cards['Ace']
+      return value
+
         
 class Player:
     def __init__(self):
@@ -50,10 +57,10 @@ class Player:
         self.hand.add_card(deck.deal_card())
         
     def is_bust(self):
-        return self.hand.value > 21
+        return self.hand.get_value() > 21
     
     def has_blackjack(self):
-        return len(self.hand.cards) == 2 and self.hand.value == 21
+        return len(self.hand.cards) == 2 and self.hand.get_value() == 21
     
 class Dealer:
     def __init__(self):
@@ -63,10 +70,10 @@ class Dealer:
         self.hand.add_card(deck.deal_card())
         
     def is_bust(self):
-        return self.hand.value > 21
+        return self.hand.get_value() > 21
     
     def has_blackjack(self):
-        return len(self.hand.cards) == 2 and self.hand.value == 21
+        return len(self.hand.cards) == 2 and self.hand.get_value() == 21
         
 deck = Deck()
 player = Player()
@@ -98,7 +105,7 @@ while True:
 if not player.is_bust():
     print("Dealer's hand:", dealer.hand)
     
-    while dealer.hand.value < 17:
+    while dealer.hand.get_value() < 17:
         dealer.hit(deck)
         print("Dealer hits:", dealer.hand)
         
@@ -107,9 +114,9 @@ if not player.is_bust():
             break
             
     if not dealer.is_bust():
-        if player.hand.value > dealer.hand.value:
+        if player.hand.get_value() > dealer.hand.get_value():
             print("You win!")
-        elif player.hand.value == dealer.hand.value:
+        elif player.hand.get_value() == dealer.hand.get_value():
             print("Push!")
         else:
             print("Dealer wins!")
