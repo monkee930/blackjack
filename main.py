@@ -1,4 +1,8 @@
 import random
+from calligram import title
+
+print(title)
+
 
 cards = {
     'Ace': 11,
@@ -55,60 +59,72 @@ class Player:
     def has_blackjack(self):
         return len(self.hand.cards) == 2 and self.hand.value == 21
     
-class Dealer:
-    def __init__(self):
-        self.hand = Hand()
-        
-    def hit(self, deck):
-        self.hand.add_card(deck.deal_card())
-        
-    def is_bust(self):
-        return self.hand.value > 21
-    
-    def has_blackjack(self):
-        return len(self.hand.cards) == 2 and self.hand.value == 21
+
         
 deck = Deck()
 player = Player()
-dealer = Dealer()
+dealer = Player()
+want_play = True
 
+while (want_play):
 # Deal two cards to player and dealer
-player.hit(deck)
-player.hit(deck)
-dealer.hit(deck)
-print("Your hand:", player.hand)
-print("deler's's   hand:", dealer.hand.cards, "as well as a secret card")
+  player.__init__()
+  dealer.__init__()
+ 
+  player.hit(deck)
+  player.hit(deck)
+  dealer.hit(deck)
+ 
+  print("Your hand:", player.hand)
+  print("dealer's hand:", dealer.hand.cards, "as well as a secret   card")
 
-# Player's turn
-while True:
+  dealer.hit(deck)
+# Player's 
+
+  while True:
     action = input("Do you want to hit or stand? ")
-    
-    if action == 'hit':
-        player.hit(deck)
-        print("Your hand:", player.hand)
-        
-        if player.is_bust():
-            print("You are almost as bad as Elio! Dealer wins.")
-            break
-    elif action == 'stand':
+
+    if action == 'stand' or 'Stand':
         break
+      
+    if action == 'hit' or 'Hit':
+      player.hit(deck)
+      print("Your hand:", player.hand)
+        
+      if player.is_bust():
+        print("You are almost as bad as Elio! Dealer wins.")
+        break
+
+  
+    
         
 # Dealer's turn
-if not player.is_bust():
+  if not player.is_bust(): 
     print("Dealer's hand:", dealer.hand)
     
-    while dealer.hand.value < 17:
-        dealer.hit(deck)
-        print("Dealer hits:", dealer.hand)
+    while dealer.hand.value < 14:
+      dealer.hit(deck)
+      print("Dealer hits:", dealer.hand)
         
-        if dealer.is_bust():
-            print("Dealer busts! You win.")
-            break
+      if dealer.is_bust():
+        print("Dealer busts! You win.")
+        break
             
-    if not dealer.is_bust():
+      if not dealer.is_bust():
         if player.hand.value > dealer.hand.value:
-            print("You win!")
+          print("You win!")
         elif player.hand.value == dealer.hand.value:
-            print("Push!")
+          print("Push!")
         else:
-            print("Dealer wins!")
+          print("Dealer wins!")
+
+  replay = input("Do you want to play again? (yes or no): ").lower()
+    
+  if replay.lower() == "no":
+    want_play = False
+  elif replay.lower() == "yes":
+    
+    continue
+  else:
+    print("Invalid input. Game will exit.")
+    want_play = False
